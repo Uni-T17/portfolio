@@ -17,9 +17,9 @@ export const site = {
   githubUser: "Uni-T17",
   github: "https://github.com/Uni-T17",
   // TODO: replace these with your real profile URLs
-  linkedin: "https://www.linkedin.com/in/tayzartun",
-  facebook: "https://www.facebook.com/tayzartun",
-  instagram: "https://www.instagram.com/tayzartun",
+  linkedin: "https://www.linkedin.com/in/tay-zar-tun-616ba8291?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+  facebook: "https://www.facebook.com/mintayzamt",
+  instagram: "https://www.instagram.com/uni_t17?igsh=bGc4YXNsamVxNzZj&utm_source=qr",
 
   /** Resume file — put the PDF in /public and point to it here. */
   resume: "/resume.pdf",
