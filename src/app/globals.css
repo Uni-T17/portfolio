@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+   Design tokens — "file system" theme.
+   Light mode is sampled from the reference mock (pale mint page, folder-tab
+   green, royal-blue name, ink borders, code-syntax accents).
+   Dark mode is the same identity shifted onto a deep forest-green base.
+--------------------------------------------------------------------------- */
+:root {
+  --shell: #f1f8ef;        /* page background */
+  --panel: #d9eed3;        /* navbar / pills */
+  --card: #f7fbf5;         /* window bodies */
+  --tab: #d3ecca;          /* folder tabs */
+  --ink: #24352b;          /* strong borders / near-black text */
+  --body-c: #33473b;       /* body text */
+  --soft: #5f7566;         /* muted text */
+  --title-c: #1c3b2d;      /* headings */
+  --accent: #4c6ef5;       /* royal blue (name) */
+  --iris: #6c63e0;         /* purple-blue (role) */
+  --mint: #c4e7bc;         /* button fill */
+  --code-green: #2f9e44;
+  --code-cyan: #0c8fa8;
+  --code-pink: #e0559a;
+  --glow: rgba(76, 110, 245, 0.28);
+  --blob-a: #a8cfa5;       /* decorative organic shapes */
+  --blob-b: #8fbe97;
+}
+
+.dark {
+  --shell: #0b1410;
+  --panel: #12241a;
+  --card: #101d16;
+  --tab: #1a3122;
+  --ink: #3f5c4b;
+  --body-c: #c2d8c8;
+  --soft: #85a190;
+  --title-c: #e8f5ec;
+  --accent: #8aa7ff;
+  --iris: #a5a1f5;
+  --mint: #23472f;
+  --code-green: #4ade80;
+  --code-cyan: #38cfe8;
+  --code-pink: #f27bb8;
+  --glow: rgba(138, 167, 255, 0.35);
+  --blob-a: #1d3a28;
+  --blob-b: #27503a;
+}
+
+@theme inline {
+  --color-shell: var(--shell);
+  --color-panel: var(--panel);
+  --color-card: var(--card);
+  --color-tab: var(--tab);
+  --color-ink: var(--ink);
+  --color-body: var(--body-c);
+  --color-soft: var(--soft);
+  --color-title: var(--title-c);
+  --color-accent: var(--accent);
+  --color-iris: var(--iris);
+  --color-mint: var(--mint);
+  --color-code-green: var(--code-green);
+  --color-code-cyan: var(--code-cyan);
+  --color-code-pink: var(--code-pink);
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-sans: var(--font-jetbrains), ui-monospace, monospace; /* mono-first identity */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--shell);
+  color: var(--body-c);
+  font-family: var(--font-mono);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--shell);
+}
+
+/* Blinking terminal caret */
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.caret {
+  animation: caret-blink 1.1s step-end infinite;
+}
+
+/* Slow panning gradient (hero accents, project covers) */
+@keyframes gradient-pan {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradient-pan 9s ease infinite;
+}
+
+/* Hard offset shadow — the retro "stacked window" look */
+.shadow-hard {
+  box-shadow: 5px 5px 0 0 color-mix(in srgb, var(--ink) 22%, transparent);
+}
+.shadow-hard-sm {
+  box-shadow: 3px 3px 0 0 color-mix(in srgb, var(--ink) 22%, transparent);
+}
+
+/* Soft glow used on hover states */
+.hover-glow {
+  transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 36px -6px var(--glow);
+}
+
+/* Slowly rotating dashed orbit ring behind the profile photo */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+.orbit-spin {
+  animation: spin-slow 32s linear infinite;
+}
+.orbit-spin-rev {
+  animation: spin-slow 46s linear infinite reverse;
+}
+
+/* Gentle floating for decorative chips */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+.float-y-slow {
+  animation: float-y 8s ease-in-out infinite;
+}
+
+/* Hide the scrollbar entirely (used by the auto-looping projects carousel) */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Thin custom scrollbar for the scrollable timeline panels */
+.scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ink) 35%, transparent) transparent;
+}
+.scroll-slim::-webkit-scrollbar {
+  width: 6px;
+}
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
+  border-radius: 999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animated-gradient, .caret, .orbit-spin, .orbit-spin-rev, .float-y, .float-y-slow {
+    animation: none;
+  }
+}
